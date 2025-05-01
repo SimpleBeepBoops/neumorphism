@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 plugins {
-    id(Plugins.ANDROID_APPLICATION)
+    id("com.android.application")
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.COMPOSE_MULTIPLATFORM)
 }
@@ -22,11 +22,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
     buildFeatures {
         compose = true

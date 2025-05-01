@@ -1,4 +1,5 @@
 plugins {
+    id("com.android.library")
     id(Plugins.NEU_MULTIPLATFORM)
     id(Plugins.COMPOSE_MULTIPLATFORM)
 }

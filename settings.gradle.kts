@@ -7,6 +7,13 @@ pluginManagement {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "com.android.application" || requested.id.id == "com.android.library") {
+                useVersion("8.7.3")
+            }
+        }
+    }
 }
 dependencyResolutionManagement {
     repositories {

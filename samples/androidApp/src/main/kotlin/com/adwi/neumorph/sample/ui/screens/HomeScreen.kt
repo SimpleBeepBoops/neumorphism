@@ -2,19 +2,27 @@ package com.adwi.neumorph.sample.ui.screens
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,7 +54,7 @@ fun HomeScreen() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(24.dp)
-            .scrollable(rememberScrollState(), Orientation.Vertical)
+            .verticalScroll(rememberScrollState())
     ) {
         var radioValue by remember { mutableStateOf(true) }
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -178,6 +186,304 @@ fun HomeScreen() {
                 )
             }
         )
+
+        // Interactive Card Gallery
+        Text(
+            text = "Interactive Cards",
+            color = MaterialTheme.colors.onBackground,
+            modifier = Modifier.padding(vertical = 16.dp)
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            NeuPressed(
+                elevation = 15.dp,
+                cornerRadius = 20.dp,
+                lightSource = LightSource.LEFT_TOP,
+                backgroundColor = MaterialTheme.colors.surface,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(120.dp),
+                content = {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = "Card 1",
+                            color = MaterialTheme.colors.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        NeuButtonOval(
+                            elevation = 8.dp,
+                            backgroundColor = MaterialTheme.colors.primary,
+                            lightSource = LightSource.LEFT_TOP,
+                            modifier = Modifier.size(40.dp),
+                            content = { }
+                        )
+                    }
+                }
+            )
+            NeuPunched(
+                elevation = 15.dp,
+                cornerRadius = 20.dp,
+                lightSource = LightSource.RIGHT_BOTTOM,
+                backgroundColor = MaterialTheme.colors.surface,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(120.dp),
+                content = {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = "Card 2",
+                            color = MaterialTheme.colors.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        NeuButtonOval(
+                            elevation = 8.dp,
+                            backgroundColor = MaterialTheme.colors.secondary,
+                            lightSource = LightSource.RIGHT_BOTTOM,
+                            modifier = Modifier.size(40.dp),
+                            content = { }
+                        )
+                    }
+                }
+            )
+        }
+
+        // Music Player Interface
+        Text(
+            text = "Music Player",
+            color = MaterialTheme.colors.onBackground,
+            modifier = Modifier.padding(vertical = 16.dp)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(220.dp)
+        ) {
+            NeuPressed(
+                elevation = 15.dp,
+                cornerRadius = 20.dp,
+                lightSource = LightSource.LEFT_TOP,
+                backgroundColor = MaterialTheme.colors.surface,
+                modifier = Modifier.fillMaxSize(),
+                content = {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        // Simple album art
+                        Box(
+                            modifier = Modifier
+                                .size(80.dp)
+                                .padding(bottom = 16.dp)
+                        ) {
+                            NeuPressed(
+                                elevation = 8.dp,
+                                cornerRadius = 12.dp,
+                                lightSource = LightSource.LEFT_TOP,
+                                backgroundColor = MaterialTheme.colors.primary,
+                                modifier = Modifier.fillMaxSize(),
+                                content = {
+                                    Icon(
+                                        imageVector = Icons.Default.PlayArrow,
+                                        contentDescription = "Album Art",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(40.dp)
+                                    )
+                                }
+                            )
+                        }
+                        
+                        // Song Info
+                        Text(
+                            text = "Song Title",
+                            color = MaterialTheme.colors.onSurface,
+                            style = MaterialTheme.typography.h6
+                        )
+                        Text(
+                            text = "Artist Name",
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
+                            style = MaterialTheme.typography.subtitle2
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        // Progress Bar
+                        var progress by remember { mutableStateOf(0.3f) }
+                        Column(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            NeuSliderBar(
+                                value = progress,
+                                onValueChange = { progress = it },
+                                elevation = 8.dp,
+                                lightSource = LightSource.LEFT_TOP,
+                                cornerRadius = 8.dp,
+                                handleColor = MaterialTheme.colors.primary,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = "1:23",
+                                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
+                                    style = MaterialTheme.typography.caption
+                                )
+                                Text(
+                                    text = "3:45",
+                                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
+                                    style = MaterialTheme.typography.caption
+                                )
+                            }
+                        }
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        // Controls
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(24.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            NeuButtonOval(
+                                elevation = 8.dp,
+                                backgroundColor = MaterialTheme.colors.surface,
+                                lightSource = LightSource.LEFT_TOP,
+                                modifier = Modifier.size(48.dp),
+                                content = {
+                                    Icon(
+                                        imageVector = Icons.Default.SkipPrevious,
+                                        contentDescription = "Previous",
+                                        tint = MaterialTheme.colors.onSurface
+                                    )
+                                }
+                            )
+                            NeuButtonOval(
+                                elevation = 12.dp,
+                                backgroundColor = MaterialTheme.colors.primary,
+                                lightSource = LightSource.LEFT_TOP,
+                                modifier = Modifier.size(64.dp),
+                                content = {
+                                    Icon(
+                                        imageVector = Icons.Default.PlayArrow,
+                                        contentDescription = "Play",
+                                        tint = Color.White
+                                    )
+                                }
+                            )
+                            NeuButtonOval(
+                                elevation = 8.dp,
+                                backgroundColor = MaterialTheme.colors.surface,
+                                lightSource = LightSource.LEFT_TOP,
+                                modifier = Modifier.size(48.dp),
+                                content = {
+                                    Icon(
+                                        imageVector = Icons.Default.SkipNext,
+                                        contentDescription = "Next",
+                                        tint = MaterialTheme.colors.onSurface
+                                    )
+                                }
+                            )
+                        }
+                    }
+                }
+            )
+        }
+
+        // Animated Buttons Grid
+        Text(
+            text = "Animated Buttons",
+            color = MaterialTheme.colors.onBackground,
+            modifier = Modifier.padding(vertical = 16.dp)
+        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                NeuButtonRounded(
+                    elevation = 10.dp,
+                    cornerRadius = 12.dp,
+                    lightSource = LightSource.LEFT_TOP,
+                    backgroundColor = MaterialTheme.colors.primary,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(80.dp),
+                    content = {
+                        Text(
+                            text = "Primary",
+                            color = Color.White,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                )
+                NeuButtonRounded(
+                    elevation = 10.dp,
+                    cornerRadius = 12.dp,
+                    lightSource = LightSource.RIGHT_BOTTOM,
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(80.dp),
+                    content = {
+                        Text(
+                            text = "Secondary",
+                            color = Color.White,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                )
+            }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                NeuButtonRounded(
+                    elevation = 10.dp,
+                    cornerRadius = 12.dp,
+                    lightSource = LightSource.LEFT_BOTTOM,
+                    backgroundColor = MaterialTheme.colors.error,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(80.dp),
+                    content = {
+                        Text(
+                            text = "Error",
+                            color = Color.White,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                )
+                NeuButtonRounded(
+                    elevation = 10.dp,
+                    cornerRadius = 12.dp,
+                    lightSource = LightSource.RIGHT_TOP,
+                    backgroundColor = MaterialTheme.colors.surface,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(80.dp),
+                    content = {
+                        Text(
+                            text = "Surface",
+                            color = MaterialTheme.colors.onSurface,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                )
+            }
+        }
     }
 }
 

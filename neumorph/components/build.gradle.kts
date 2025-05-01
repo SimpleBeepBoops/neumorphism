@@ -1,4 +1,5 @@
 plugins {
+    id("com.android.library")
     id(Plugins.NEU_MULTIPLATFORM)
     id(Plugins.COMPOSE_MULTIPLATFORM)
     id(Plugins.DOKKA)
@@ -21,16 +22,23 @@ kotlin.sourceSets {
 
 android {
     namespace = location(Modules.COMPONENTS)
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = AppConfig.Maven.groupId
+            artifactId = AppConfig.Maven.artifactId
+            version = AppConfig.Maven.version
+            
+            afterEvaluate {
                 from(components["release"])
-                groupId = AppConfig.Maven.groupId
-                artifactId = AppConfig.Maven.artifactId
-                version = AppConfig.Maven.version
             }
         }
     }
